@@ -18,5 +18,12 @@ fun Route.maihimeSampleController() {
                 call.respond(MaihimeSampleResponse("OK", "request:${param.sampleValue}"))
             }
         }
+        route("sample2") {
+            post {
+                val param = call.receive<MaihimeSampleRequest>()
+                println(param.sampleValue)
+                call.respond(MaihimeSampleResponse("BadRequest", "リクエスト不正"))
+            }
+        }
     }
 }
