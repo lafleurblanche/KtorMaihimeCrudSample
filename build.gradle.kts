@@ -34,4 +34,27 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    //Exposed
+    val exposedVersion: String by project
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
+    implementation ("org.postgresql:postgresql:42.5.0")
+}
+
+// 'gradle jar'を使えるようにタスクを定義
+val jar by tasks.getting(Jar::class) {
+    duplicatesStrategy= DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes["Main-Class"] = "net.konohana.sakuya.maihime.crud.sample.ApplicationKt"
+    }
+
+    from(
+        configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it else zipTree(it)
+        }
+    )
+    exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
 }
