@@ -38,6 +38,20 @@ fun Route.maihimeSampleController() {
                         println(req.via)
                         println(req.fare)
                         println(req.dayOfUse)
+                        call.respond(MaihimeSampleResponse("OK", "request: OK"))
+                    }
+                }
+                route("sample2") {
+                    post {
+                        val req = call.receive<OnewayTicketAdultRequestDataFromAPI>()
+                        println(req.requestNo)
+                        println(req.ticketNo)
+                        println(req.fromSta)
+                        println(req.toSta)
+                        println(req.via)
+                        println(req.fare)
+                        println(req.dayOfUse)
+                        call.respond(MaihimeSampleResponse("BadRequest", "request: BadRequest"))
                     }
                 }
             }
