@@ -42,6 +42,10 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
     implementation ("org.postgresql:postgresql:42.5.0")
+
+    // Arrow
+    val arrowVersion: String by project
+    implementation("io.arrow-kt:arrow-core:$arrowVersion")
 }
 
 // 'gradle jar'を使えるようにタスクを定義
