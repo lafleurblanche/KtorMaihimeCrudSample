@@ -27,7 +27,7 @@ fun Route.onewayTicketHalfRequestController() {
                 call.respond(mapOf("id" to id))
             }
             get("/{id}") {
-                val id = call.parameters["id"]?.let { it.toInt() } ?: run {
+                val id = call.parameters["id"]?.toInt() ?: run {
                     return@get call.respond(HttpStatusCode.BadRequest, "IDが指定されていません")
                 }
                 val onewayTicketHalfReq = OnewayTicketHalfRequestService.find(id) ?: run {
