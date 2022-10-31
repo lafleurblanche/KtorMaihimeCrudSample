@@ -9,6 +9,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
+import net.konohana.sakuya.maihime.crud.sample.utils.date.dateOfUseFormatter
 
 fun Route.maihimeDateTimeSampleController() {
     route("maihime") {
@@ -32,8 +33,7 @@ fun Route.maihimeDateTimeSampleController() {
             route("today") {
                 get {
                     val now = Clock.System.now()
-                    val today = now.toString().substring(0, 10)
-                    val todayFix = today.replace("-", "/")
+                    val todayFix = dateOfUseFormatter(now.toString())
                     call.respond(mapOf("today" to todayFix))
                 }
             }
