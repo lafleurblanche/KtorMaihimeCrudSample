@@ -28,5 +28,15 @@ fun Route.maihimeDateTimeSampleController() {
                 }
             }
         }
+        route("date") {
+            route("today") {
+                get {
+                    val now = Clock.System.now()
+                    val today = now.toString().substring(0, 10)
+                    val todayFix = today.replace("-", "/")
+                    call.respond(mapOf("today" to todayFix))
+                }
+            }
+        }
     }
 }
