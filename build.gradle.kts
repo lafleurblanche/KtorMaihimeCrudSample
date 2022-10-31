@@ -46,6 +46,9 @@ dependencies {
     // Arrow
     val arrowVersion: String by project
     implementation("io.arrow-kt:arrow-core:$arrowVersion")
+
+    //kotlinx-datetime
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 }
 
 // 'gradle jar'を使えるようにタスクを定義
