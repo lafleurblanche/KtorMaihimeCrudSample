@@ -28,6 +28,14 @@ fun Route.maihimeDateTimeSampleController() {
                     call.respond(mapOf("tomorrow" to tomorrow.toString()))
                 }
             }
+            route("one-month") {
+                get {
+                    val now = Clock.System.now()
+                    val systemTZ = TimeZone.currentSystemDefault()
+                    val tomorrow = now.plus(1, DateTimeUnit.MONTH, systemTZ)
+                    call.respond(mapOf("one-month" to tomorrow.toString()))
+                }
+            }
         }
         route("date") {
             route("today") {
@@ -35,6 +43,15 @@ fun Route.maihimeDateTimeSampleController() {
                     val now = Clock.System.now()
                     val todayFix = dateOfUseFormatter(now.toString())
                     call.respond(mapOf("today" to todayFix))
+                }
+            }
+            route("tomorrow") {
+                get {
+                    val now = Clock.System.now()
+                    val systemTZ = TimeZone.currentSystemDefault()
+                    val tomorrow = now.plus(1, DateTimeUnit.DAY, systemTZ)
+                    val tomorrowFix = dateOfUseFormatter(tomorrow.toString())
+                    call.respond(mapOf("tomorrow" to tomorrowFix))
                 }
             }
         }
