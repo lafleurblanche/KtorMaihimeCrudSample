@@ -14,6 +14,9 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import net.konohana.sakuya.maihime.crud.sample.utils.date.dateOfUseFormatter
+import net.konohana.sakuya.maihime.crud.sample.utils.date.getNowTimeString
+
+val timeZone = TimeZone.of("Asia/Tokyo")
 
 fun Route.maihimeDateTimeSampleController() {
     route("maihime") {
@@ -27,12 +30,7 @@ fun Route.maihimeDateTimeSampleController() {
             }
             route("tomorrow") {
                 get {
-                    val now = Clock.System.now()
-                    val thisTime: LocalTime = now.toLocalDateTime(TimeZone.of("Asia/Tokyo")).time
-                    val thistimeSep = thisTime.toString().substring(0,8)
-                    val timeZone = TimeZone.of("Asia/Tokyo")
-                    val nowString = now.toString().substring(0, 11)
-                    val localDateTime = LocalDateTime.parse(nowString + thistimeSep)
+                    val localDateTime = LocalDateTime.parse(getNowTimeString())
                     val instant = localDateTime.toInstant(timeZone)
                     val instantOneDayLater = instant.plus(1, DateTimeUnit.DAY, timeZone)
                     val localDateTimeOneDayLater = instantOneDayLater.toLocalDateTime(timeZone)
@@ -42,17 +40,12 @@ fun Route.maihimeDateTimeSampleController() {
             }
             route("day-after-tomorrow") {
                 get {
-                    val now = Clock.System.now()
-                    val thisTime: LocalTime = now.toLocalDateTime(TimeZone.of("Asia/Tokyo")).time
-                    val thistimeSep = thisTime.toString().substring(0,8)
-                    val timeZone = TimeZone.of("Asia/Tokyo")
-                    val nowString = now.toString().substring(0, 11)
-                    val localDateTime = LocalDateTime.parse(nowString + thistimeSep)
+                    val localDateTime = LocalDateTime.parse(getNowTimeString())
                     val instant = localDateTime.toInstant(timeZone)
                     val instantOneDayLater = instant.plus(2, DateTimeUnit.DAY, timeZone)
                     val localDateTimeOneDayLater = instantOneDayLater.toLocalDateTime(timeZone)
                     val dayAfterTomorrow = localDateTimeOneDayLater.toString().substring(0,10)
-                    call.respond(mapOf("tomorrow" to dayAfterTomorrow.toString()))
+                    call.respond(mapOf("tomorrow" to dayAfterTomorrow))
                 }
             }
             route("one-month") {
